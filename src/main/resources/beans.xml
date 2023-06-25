@@ -4,7 +4,24 @@
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <bean id="b1" class="com.khadri.spring.core.Bean1" />
-  <bean id="b2" class="com.khadri.spring.core.Bean2" scope="prototype"/>
+    <bean id="b1" class="com.khadri.spring.core.scope.Bean1"/>
+    <bean id="b2" class="com.khadri.spring.core.scope.Bean2" scope="prototype"/>
 
+    <bean id="bus1" class="com.khadri.spring.core.scope.method.injection.Bus"> <!-- Bus@1234 -->
+        <property name="passenger" ref="p1"/><!-- Passenger@1234-->
+    </bean>
+    <bean id="p1" class="com.khadri.spring.core.scope.method.injection.Passenger"
+          scope="prototype"/> <!-- Passenger@1234-->
+
+    <bean id="bus2" class="com.khadri.spring.core.scope.lookup.injection.Bus">
+        <property name="lookUpManager" ref="lookUp"/>
+    </bean>
+
+    <bean id="p2" class="com.khadri.spring.core.scope.lookup.injection.Passenger" scope="prototype"/>
+
+    <!-- This abstract class at runtime genarates CGLIB sub class -->
+    <bean id="lookUp" class="com.khadri.spring.core.scope.lookup.injection.LookUpManager">
+        <!--This method will be overrides with implementation at CGLIB generated sub class-->
+        <lookup-method name="createProtoTypeBean" bean="p2"/>
+    </bean>
 </beans>

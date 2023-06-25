@@ -1,6 +1,7 @@
-package com.khadri.spring.core;
+package com.khadri.spring.core.scope;
 
 
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -19,5 +20,8 @@ public class Main {
 
         Bean2 bean4 = context.getBean("b2",Bean2.class);
         System.out.println(bean4);
+
+
+
     }
 }
